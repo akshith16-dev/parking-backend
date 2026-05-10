@@ -18,8 +18,6 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Username already registered")
     
     hashed_password = get_password_hash(user.password)
-    # The first user could be an admin, or we can just make everyone user by default 
-    # and manually change in db. We'll set default to 'user'.
     db_user = User(username=user.username, hashed_password=hashed_password)
     db.add(db_user)
     db.commit()
@@ -40,3 +38,13 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         data={"sub": user.username}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer", "role": user.role}
+
+# ⚠️ TEMPORARY - COMMENT OUT AFTER USE
+@router.post("/make-admin/{username}")
+def make_admin(username: str, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.username == username).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    user.role = "admin"
+    db.commit()
+    return {"message": f"{username} is now admin!"}
