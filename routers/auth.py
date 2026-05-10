@@ -40,11 +40,11 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     return {"access_token": access_token, "token_type": "bearer", "role": user.role}
 
 # ⚠️ TEMPORARY - COMMENT OUT AFTER USE
-@router.post("/make-admin/{username}")
-def make_admin(username: str, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.username == username).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    user.role = "admin"
-    db.commit()
-    return {"message": f"{username} is now admin!"}
+# @router.post("/make-admin/{username}")
+# def make_admin(username: str, db: Session = Depends(get_db)):
+#     user = db.query(User).filter(User.username == username).first()
+#     if not user:
+#         raise HTTPException(status_code=404, detail="User not found")
+#     user.role = "admin"
+#     db.commit()
+#     return {"message": f"{username} is now admin!"}
