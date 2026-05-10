@@ -12,7 +12,10 @@ app = FastAPI(title="Vehicle Parking Management API")
 # Configure CORS for frontend access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In production, replace with frontend URL
+    allow_origins=[
+        "http://localhost:5173",
+        "https://parking-frontend-khaki.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
