@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from database import engine, Base
 from routers import auth, slots, bookings
-
+from startup import init_db
+init_db()  # Add this line after Base.metadata.create_all
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
