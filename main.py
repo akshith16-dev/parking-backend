@@ -25,4 +25,4 @@ app.include_router(bookings.router)
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to Vehicle Parking Management API"}
+    return {"message": "Welcome to Vehicle Parking Management API -- Safe and Secure parking"}
